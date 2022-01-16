@@ -14,8 +14,9 @@ urlpatterns = [
 ]
     
 
-#Test for adding item 2 cart
+
 """
+CURL commands to test indivual features
 curl -X POST -H "Content-Type: application/json" https://8000-eorge-frameworksandla-s8jvndsus9i.ws-eu27.gitpod.io/api/item -d "{\"username\":\"name\",\"lat\":\"41.5\",\"lon\":\"50.5\",\"image\":\"1\",\"keywords\":\"I like trains\",\"description\":\"Please work jesus\"}"
 
 curl -X POST -H "Content-Type: application/json" https://8000-eorge-frameworksandla-s8jvndsus9i.ws-eu27.gitpod.io/api/item -d "{\"user_id\":\"name\",\"lat\":\"41.5\",\"lon\":\"50.5\",\"image\":\"1\",\"keywords\":\"I like trains\",\"description\":\"Please work jesus\"}"

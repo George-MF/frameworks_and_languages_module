@@ -5,6 +5,7 @@ from django.http import HttpResponse
 import json
 from .models import Item
 
+#Handles base /api/ end point.
 class ApiEndpoint(View):
     def get(self, request):
         return HttpResponse("Hello, world. You're at the api index.", status=200)
@@ -44,6 +45,7 @@ class Items(View):
         print(keywords)
         description = data.get('description')
 
+        #Checks received data has all required information
         requiredJsonFields = ["user_id","lat","lon","keywords","description"]
         requiredInformation=True
         for i in requiredJsonFields:
@@ -53,6 +55,7 @@ class Items(View):
         if requiredInformation == False:
             return HttpResponse("Missing json data", status=405)
         
+        #If no image data is sent set to "" so the model object can be created
         if (data.get('image')) == None:
             image = ""
 
@@ -95,6 +98,9 @@ class ItemsSingular(View):
     def get(self, request,item_id):
         items_count = Item.objects.count()
         #items = Item.objects.all()
+        
+        #Try to fetch item
+        #If item doesn't exist return error
         try:
             item = Item.objects.get(id=item_id)
         except:
@@ -108,7 +114,7 @@ class ItemsSingular(View):
             "description": item.description
         }
 
-        #Allows None image data 
+        #Allows None image data to not crash site
         if (item.image != ""):
             product_data["image"]=item.image
 
@@ -122,7 +128,8 @@ class ItemsSingular(View):
         return response
         
     def delete(self, request, item_id):
-
+        
+        #Checks item exits before trying to delete 
         try:
             item = Item.objects.get(id=item_id)
         except:
