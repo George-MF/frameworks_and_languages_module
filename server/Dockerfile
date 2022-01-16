@@ -1,6 +1,15 @@
-FROM alpine
+FROM python:slim
 
-#WORKDIR /app/
+WORKDIR /app/
 
-#COPY openapi.yml .
+RUN pip install \
+    django
+#
+RUN pip install django-cors-headers
+#
 
+COPY . .
+
+RUN ["python3", "mysite/manage.py", "migrate"]
+
+CMD ["python3", "mysite/manage.py", "runserver", "0.0.0.0:8000"]
